@@ -1,0 +1,9 @@
+# We don't care about OS X' littering
+.DS_Store
+._*
+
+# BBedit Projectfile doesn't need versioning
+/*.bbprojectd
+
+# We don't care about build products
+/pkg/*
