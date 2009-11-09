@@ -1,5 +1,3 @@
-#fs = FileString.new("../data/helloworld.txt")
-
 # SYNOPSIS
 #   fs = FileString.with_default("some_file.txt", "hello world!")
 #   fs[6,5]                    # => "world"
