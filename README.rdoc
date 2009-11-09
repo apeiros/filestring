@@ -1,0 +1,53 @@
+= FileString
+
+
+
+== Summary
+
+Use files just like plain normal strings.
+
+
+== Also See
+
+IRC::             The channel #ruby-lang on irc.freenode.org
+                  
+                  I'm there under the nick apeiros.
+                  
+                  Beware, I'm idling there 24/7, so my nick being in there doesn't
+                  mean I'm in front of the computer.
+
+
+
+== Description
+
+FileString is a class that wraps a path on the filesystem (a file) and provides
+an exact copy of the String API. This means you can code as if you had a String
+and your file on the disk gets manipulated just magically.
+
+
+== Quick Try
+
+1. Download from github and unpack (or clone)
+2. Change into the filestring's lib directory: `cd some_dir/filestring/lib`
+3. Try in irb: `irb -rfilestring`
+   You can create a FileString by doing e.g.
+   `fs = FileString.new('/some/path.txt')`. Apply some mutating String methods
+   like []=, upcase! or gsub! and watch the file on disk change.
+
+
+
+== Install
+
+FileString is not currently a gem or prepared to be installed. You'll have to
+manually copy it into site_ruby.
+
+
+
+== Credits & Contributions
+
+Empty so far - time for you to do something to end up here!
+
+
+== Known bugs
+
+Currently none.
