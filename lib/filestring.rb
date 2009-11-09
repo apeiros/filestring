@@ -1,4 +1,12 @@
-# SYNOPSIS
+#--
+# Copyright 2009 by Stefan Rusterholz.
+# All rights reserved.
+# See LICENSE.txt for permissions.
+#++
+
+
+
+# == SYNOPSIS
 #   fs = FileString.with_default("some_file.txt", "hello world!")
 #   fs[6,5]                    # => "world"
 #   fs[6,5] = "dude"           # => "dude"
@@ -6,7 +14,7 @@
 #   fs.to_s                    # => "HELLO DUDE!"
 #   File.read("some_file.txt") # => "HELLO DUDE!"
 #
-# DESCRIPTION
+# == DESCRIPTION
 # Replicates all (or most) of String's methods, therefore look
 # in String for documentation of the methods.
 # All in-place operations of String (like gsub!, []= etc.) will
@@ -16,10 +24,10 @@
 # A non-existing file is treated as an empty string - if you add content
 # to the string, it'll create the file.
 #
-# A NOTE REGARDING WINDOWS (BINARY MODE)
+# == A NOTE REGARDING WINDOWS (BINARY MODE)
 # All operations are performed reading/writing the file in binary mode.
 #
-# PERFORMANCE
+# == PERFORMANCE
 # Performance was not a main concern when writing FileString.
 # However, certain methods contain some optimizations wrt Files
 # being potentially slow and possibly big. Instead of working on
@@ -28,19 +36,20 @@
 # if they differ in the first BlockSize bytes. FileString#[]= will
 # only rewrite as little as necessary.
 #
-# COMPARISON WITH STRINGS
+# == COMPARISON WITH STRINGS
 # A FileString is == and eql? to a String with the same content as
 # the file it is linked to.
 #
-# IMPORTANT
+# == IMPORTANT
 # FileString does no kind of locking on the file - if you need that,
 # you have to do it yourself.
 #
-# TODO
+# == TODO
 # * call to_str on some args in some methods (investigate in which)
 #   in case the arg is another FileString
 # * reimplement some of the twin/twin! methods to use chunks - might
 #   do a switch depending on the filesize (e.g. >8MB -> use chunks)
+#
 class FileString
 
   # Returns the path of the file this FileString is linked to.
