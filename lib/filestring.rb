@@ -35,6 +35,11 @@
 # E.g. FileString#== will only compare the first BlockSize bytes
 # if they differ in the first BlockSize bytes. FileString#[]= will
 # only rewrite as little as necessary.
+# When using FileString, keep in mind that you're working with a file,
+# files are slow. In certain cases it may be more efficient to simply read
+# the file, work with the string and when the show is over, write all back
+# to the file.
+#
 #
 # == COMPARISON WITH STRINGS
 # A FileString is == and eql? to a String with the same content as
