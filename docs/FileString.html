@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: FileString</title>
+
+	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+	<script src="./js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="./lib/filestring/version_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/filestring/version.rb">lib/filestring/version.rb</a></li>
+					
+						<li><a href="./lib/filestring_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/filestring.rb">lib/filestring.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">MODULE</span> <a href="FileString/VERSION.html">FileString::VERSION</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000001">::force</a></li>
+					
+					<li><a href="#M000003">::new</a></li>
+					
+					<li><a href="#M000002">::with_default</a></li>
+					
+					<li><a href="#M000005">#delete_file</a></li>
+					
+					<li><a href="#M000004">#exist?</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">Enumerable</span></li>
+				
+				
+				
+					<li><span class="include">Comparable</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="./LICENSE_txt.html">LICENSE.txt</a></li>
+				
+					<li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="./images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="./FileString.html">FileString</a></li>
+				
+					<li><a href="./FileString/VERSION.html">FileString::VERSION</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">FileString</h1>
+
+		<div id="description">
+			<h2>SYNOPSIS</h2>
+<pre>
+  fs = FileString.with_default(&quot;some_file.txt&quot;, &quot;hello world!&quot;)
+  fs[6,5]                    # =&gt; &quot;world&quot;
+  fs[6,5] = &quot;dude&quot;           # =&gt; &quot;dude&quot;
+  fs.upcase!
+  fs.to_s                    # =&gt; &quot;HELLO DUDE!&quot;
+  File.read(&quot;some_file.txt&quot;) # =&gt; &quot;HELLO DUDE!&quot;
+</pre>
+<h2>DESCRIPTION</h2>
+<p>
+Replicates all (or most) of String&#8217;s methods, therefore look in
+String for documentation of the methods. All in-place operations of String
+(like gsub!, []= etc.) will directly and immediatly affect the file the <a
+href="FileString.html">FileString</a> is tied to. Methods that are not
+in-place and return a String in String&#8217;s methods will return a String
+here too. A non-existing file is treated as an empty string - if you add
+content to the string, it&#8217;ll create the file.
+</p>
+<h2>A NOTE REGARDING WINDOWS (BINARY MODE)</h2>
+<p>
+All operations are performed reading/writing the file in binary mode.
+</p>
+<h2>PERFORMANCE</h2>
+<p>
+Performance was not a main concern when writing <a
+href="FileString.html">FileString</a>. However, certain methods contain
+some optimizations wrt Files being potentially slow and possibly big.
+Instead of working on the whole file, they&#8217;ll work on chunks and
+shortcut if possible. E.g. FileString#== will only compare the first <a
+href="FileString.html#BlockSize">BlockSize</a> bytes if they differ in the
+first <a href="FileString.html#BlockSize">BlockSize</a> bytes.
+FileString#[]= will only rewrite as little as necessary.
+</p>
+<h2>COMPARISON WITH STRINGS</h2>
+<p>
+A <a href="FileString.html">FileString</a> is == and eql? to a String with
+the same content as the file it is linked to.
+</p>
+<h2>IMPORTANT</h2>
+<p>
+<a href="FileString.html">FileString</a> does no kind of locking on the
+file - if you need that, you have to do it yourself.
+</p>
+<h2>TODO</h2>
+<ul>
+<li>call to_str on some args in some methods (investigate in which) in case the
+arg is another <a href="FileString.html">FileString</a>
+
+</li>
+<li>reimplement some of the twin/twin! methods to use chunks - might do a
+switch depending on the filesize (e.g. >8MB -> use chunks)
+
+</li>
+</ul>
+
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="BlockSize">BlockSize</a></dt>
+				
+				<dd class="description"><p>
+<a href="FileString.html#BlockSize">BlockSize</a> (or a multiple of it) is
+used as chunksize for operations working on chunks
+</p></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="path-attribute-method" class="method-detail">
+				<a name="path"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">path</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+Returns the path of the file this <a href="FileString.html">FileString</a>
+is linked to. The path is expanded (using File::expand_path)
+</p>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="force-method" class="method-detail ">
+				<a name="M000001"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">force</span><span
+						class="method-args">(path, to_string=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Will always create a file with to_string as content, even if it has to
+delete a previously existing file in order to. If to_string is nil,
+it&#8217;s just like a plain FileString::new.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="force-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/filestring.rb, line 62</span>
+62:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">force</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">to_string</span>=<span class="ruby-keyword kw">nil</span>)
+63:     <span class="ruby-identifier">file_string</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">path</span>)
+64:     <span class="ruby-identifier">file_string</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">to_string</span>)
+65:     <span class="ruby-identifier">file_string</span>
+66:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="M000003"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(path)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The argument is the path to the file this <a
+href="FileString.html">FileString</a> shall be linked to. The path is
+expanded (using File::expand_path). The file must not exist at
+initialization of <a href="FileString.html">FileString</a>, not even
+between separate operations on it. Only at the time you perform operations
+on it, its presence is required.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/filestring.rb, line 82</span>
+82:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path</span>)
+83:     <span class="ruby-ivar">@path</span>   = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">path</span>)
+84:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="with-default-method" class="method-detail ">
+				<a name="M000002"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">with_default</span><span
+						class="method-args">(path, default_string=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+If the file this <a href="FileString.html">FileString</a> instance will
+link to doesn&#8217;t exist, this method will create it and set its content
+to default_string. If default_string is nil, it&#8217;s just like a plain
+FileString::new.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="with-default-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/filestring.rb, line 71</span>
+71:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">with_default</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">default_string</span>=<span class="ruby-keyword kw">nil</span>)
+72:     <span class="ruby-identifier">file_string</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">path</span>)
+73:     <span class="ruby-identifier">file_string</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">default_string</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">default_string</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">file_string</span>.<span class="ruby-identifier">exist?</span>
+74:     <span class="ruby-identifier">file_string</span>
+75:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="delete-file-method" class="method-detail ">
+				<a name="M000005"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">delete_file</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+<a href="FileString.html">FileString</a> specific method - removes the file
+this <a href="FileString.html">FileString</a> is linked against.
+FileStrings with inexistent linked file behave like an empty string.
+Returns whether a file was actually deleted.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="delete-file-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/filestring.rb, line 104</span>
+104:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete_file</span>
+105:     <span class="ruby-constant">File</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-ivar">@path</span>)
+106:     <span class="ruby-keyword kw">true</span>
+107:   <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ENOENT</span> <span class="ruby-comment cmt"># testing for existence would be a race condition</span>
+108:     <span class="ruby-keyword kw">false</span>
+109:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="exist--method" class="method-detail ">
+				<a name="M000004"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">exist?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+<a href="FileString.html">FileString</a> specific method - tests whether
+the file this <a href="FileString.html">FileString</a> is linked against
+exists.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="exist--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/filestring.rb, line 96</span>
+96:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exist?</span>
+97:     <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-ivar">@path</span>)
+98:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
