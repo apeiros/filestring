@@ -194,19 +194,24 @@ class FileString
   alias size length
   alias bytesize length
 
-  def [](off, len=nil)
+  def [](*args)
     file_size = length
-    off, len  = *_normalize_index(file_size, off, len)
 
-    if off > file_size then
-      nil
-    elsif off == file_size then
-      ""
+    if Regexp === off then
+      _read[*args]
     else
-      _open { |fh|
-        fh.seek(off)
-        fh.read(len)
-      }
+      off, len = *_normalize_index(file_size, *args)
+
+      if off > file_size then
+        nil
+      elsif off == file_size then
+        ""
+      else
+        _open { |fh|
+          fh.seek(off)
+          fh.read(len)
+        }
+      end
     end
   end
 
@@ -217,24 +222,31 @@ class FileString
 
     file_size = length
     data      = args.pop
-    off, len  = _normalize_index(file_size, *args)
 
-    if off > file_size then
-      raise IndexError, "index #{off} out of file"
-    elsif data.length == len then
-      _open("r+b") { |fh|
-        fh.seek(off)
-        fh.write(data)
-      }
+    if Regexp === args.first then
+      content = _read
+      content[*args] = data
+      _write(content)
     else
-      _open("r+b") { |fh|
-        fh.seek(off+len)
-        rest = fh.read
-        fh.seek(off)
-        fh.write(data)
-        fh.write(rest)
-        fh.truncate(file_size-len+data.length) if data.length < len
-      }
+      off, len  = _normalize_index(file_size, *args)
+
+      if off > file_size then
+        raise IndexError, "index #{off} out of file"
+      elsif data.length == len then
+        _open("r+b") { |fh|
+          fh.seek(off)
+          fh.write(data)
+        }
+      else
+        _open("r+b") { |fh|
+          fh.seek(off+len)
+          rest = fh.read
+          fh.seek(off)
+          fh.write(data)
+          fh.write(rest)
+          fh.truncate(file_size-len+data.length) if data.length < len
+        }
+      end
     end
 
     self
@@ -326,9 +338,9 @@ class FileString
             found  = buffer.index(obj)
             offset = fh.pos - 2*read_size
           end while found.nil? && append = fh.read(read_size)
-        end        
+        end
       end
-          
+
       found ? found + offset : found
     }
   end
@@ -446,7 +458,7 @@ class FileString
       def #{method_name}(*args, &block)
         _read.#{method_name}(*args)
       end
-    
+
       def #{method_name}!(*args, &block)
         data = _read
         rv   = data.#{method_name}!(*args, &block)
@@ -488,7 +500,7 @@ class FileString
       end
     END_OF_METHODS
   end
-  
+
   # Methods called directly on the read-open filehandle
   %w[
     bytes
@@ -517,7 +529,7 @@ class FileString
   alias intern to_sym
 
   def to_s
-    File.read(@path)
+    _read
   end
   alias to_str to_s
 
